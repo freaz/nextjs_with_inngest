@@ -31,7 +31,8 @@ export const processJob = inngest.createFunction(
     // long time running step
     await step.run('long-time-running', async () => {
       await new Promise((resolve) => {
-        setTimeout(resolve, (5 * 60 + 30) * 1000); // 5 minutes and 30 seconds
+        //setTimeout(resolve, (5 * 60 + 30) * 1000); // 5 minutes and 30 seconds
+        setTimeout(resolve, 9 * 1000); // 9 seconds, deployed on hobby plan, which allows just 10 seconds at maximum for functions
       })
     })
 
