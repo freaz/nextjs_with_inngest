@@ -21,13 +21,20 @@ export const processJob = inngest.createFunction(
       throw new NonRetriableError(`Job ${jobId} not found`)
     }
 
-    await step.sleep('random-wait', randomSeconds());
     const runningJob = await step.run('mark-as-running', async () => {
       return await updateJob(jobId, { status: 'running', started: new Date() })
     })
     logger.debug('Running job', runningJob)
 
     await step.sleep('random-wait', randomSeconds());
+
+    // long time running step
+    await step.run('long-time-running', async () => {
+      await new Promise((resolve) => {
+        setTimeout(resolve, (5 * 60 + 30) * 1000); // 5 minutes and 30 seconds
+      })
+    })
+
     const finishedJob = await step.run('mark-as-running', async () => {
       const status = Math.random() > 0.5 ? 'finished' : 'failed'
       return await updateJob(jobId, { status, ended: new Date() })
