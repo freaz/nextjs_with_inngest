@@ -1,5 +1,7 @@
 'use server'
 
+import { inngest } from "@/lib/inngest/client"
+import { helloWorld } from "@/lib/inngest/functions"
 import { randomUUID } from "crypto"
 
 export type Job = {
@@ -8,6 +10,12 @@ export type Job = {
 
 export async function createJob(): Promise<Job> {
   const job = { id: randomUUID() }
+  await inngest.send({
+    name: helloWorld.trigger.event,
+    data: {
+      job
+    }
+  })
   return job
 }
 
