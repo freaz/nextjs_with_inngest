@@ -1,10 +1,12 @@
 # Experimenting with Inngest
 
+https://nextjs-with-inngest.vercel.app
+
 The goal is to write simple NextJS application, which:
 
 1. creates a job with server action
 2. redirects user to job page
-3. on client starts polling job state and shows it
+3. on client starts polling job state and shows it (didn't do it yet, not necessary for experiment)
 
 ## Notes
 
