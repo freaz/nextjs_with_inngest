@@ -13,10 +13,13 @@ async function submitForm(formData: FormData) {
 
 export default function Home() {
   return (
-    <form action={submitForm}>
-      <button type="submit">
-        Create job
-      </button>
-    </form>
+    <div>
+      <h2>Branch preview: </h2>
+      <form action={submitForm}>
+        <button type="submit">
+          Create job
+        </button>
+      </form>
+    </div>
   )
 }
