@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
-import { createJob } from "./actions";
+import { createJob, listJobs } from "./actions";
+
+export const dynamic = 'force-dynamic'
 
 async function submitForm(formData: FormData) {
   "use server"
@@ -11,12 +13,26 @@ async function submitForm(formData: FormData) {
   redirect(`/job/${job.id}`)
 }
 
-export default function Home() {
+export default async function Home() {
+  const jobs = await listJobs()
+
   return (
-    <form action={submitForm}>
-      <button type="submit">
-        Create job
-      </button>
-    </form>
+    <main>
+      <form action={submitForm}>
+        <button type="submit">
+          Create job
+        </button>
+      </form>
+
+      <ul>
+        {jobs.length > 0 ? jobs.map(job => (
+          <li key={job.id}>
+            <a href={`/job/${job.id}`}>
+              {job.id}
+            </a>
+          </li>
+        )) : 'No jobs'}
+      </ul>
+    </main>
   )
 }
